@@ -15,4 +15,15 @@
       }
     }
   }
+
+  ::ng-deep .main-menu {
+    .menu-group {
+      font-size: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .menu-group:not(:first-child) {
+      margin-top: 25px;
+    }
+  }
 }

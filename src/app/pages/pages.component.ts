@@ -1,21 +1,29 @@
 import { Component } from '@angular/core';
-import { NetworkserviceService } from '../services/networkservice.service';
-
-import { MENU_ITEMS } from './pages-menu';
+import { MenuService } from '../services/menu.service';
+import { MobileMenuItem } from '../model/mobile-menu-item';
 
 @Component({
-  selector: 'ngx-pages',
-  styleUrls: ['pages.component.scss'],
-  template: `
-    <ngx-one-column-layout>
-      <nb-menu [items]="menu"></nb-menu>
-      <router-outlet></router-outlet>
-    </ngx-one-column-layout>
-  `,
+    selector: 'ngx-pages',
+    styleUrls: ['pages.component.scss'],
+    template: `
+        <ngx-one-column-layout>
+            <nb-menu [tag]="'main-menu'" [class]="'main-menu'" [items]="menuItems"></nb-menu>
+            <router-outlet></router-outlet>
+        </ngx-one-column-layout>
+    `,
 })
 
 export class PagesComponent {
-  constructor(private service: NetworkserviceService) {}
+    public menuItems: MobileMenuItem[];
 
-  menu = this.service.MENU_ITEMS;
+    constructor(
+        private menuService: MenuService,
+    ) {
+        this.menuItems = [
+            ...this.menuService.kaiMenuItems(),
+            ...this.menuService.mainMenuItems(),
+            ...this.menuService.adminMenuItems(),
+            ...this.menuService.generalMenuItems(),
+        ];
+    }
 }
